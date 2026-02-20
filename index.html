@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>给野云老师的一封信</title>
+  <style>
+    :root{
+      --bgA:#fff7fb;
+      --bgB:#f6fbff;
+      --bgC:#ffffff;
+
+      --paper:#fffaf0;
+      --paper2:#fff3e6;
+      --ink:#1f2430;
+
+      --envA:#f3d7cc;
+      --envB:#e8c0b0;
+      --envEdge: rgba(0,0,0,.10);
+
+      --heart:#ff4d6d;
+      --gold:#ffd36e;
+
+      --shadowSoft: 0 18px 60px rgba(0,0,0,.12);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC",
+                   "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 650px at 20% 10%, var(--bgA), transparent 60%),
+        radial-gradient(1000px 550px at 80% 18%, var(--bgB), transparent 55%),
+        linear-gradient(180deg, var(--bgC), #f8f8ff);
+    }
+
+    /* soft floating blobs */
+    .blob{
+      position:absolute;
+      width:520px; height:520px;
+      border-radius:999px;
+      filter: blur(30px);
+      opacity:.35;
+      pointer-events:none;
+      animation: drift 10s ease-in-out infinite alternate;
+      mix-blend-mode:multiply;
+    }
+    .b1{ left:-140px; top:-160px; background: radial-gradient(circle at 30% 30%, #ffd1e8, transparent 60%); }
+    .b2{ right:-160px; top:-120px; background: radial-gradient(circle at 70% 30%, #cfe8ff, transparent 62%); animation-duration:12s; }
+    .b3{ left:20%; bottom:-240px; background: radial-gradient(circle at 50% 50%, #ffe9c7, transparent 60%); animation-duration:14s; }
+    @keyframes drift{
+      0%{ transform: translate(0,0) scale(1); }
+      100%{ transform: translate(40px, -20px) scale(1.06); }
+    }
+
+    .wrap{
+      width:min(560px, 94vw);
+      padding:26px 16px 34px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:14px;
+      position:relative;
+      z-index:2;
+    }
+
+    .title{
+      font-size:18px;
+      letter-spacing:.6px;
+      opacity:.88;
+      user-select:none;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: radial-gradient(circle, var(--gold), transparent 70%);
+      filter: drop-shadow(0 6px 10px rgba(255,211,110,.35));
+    }
+
+    .stage{
+      position:relative;
+      width:min(460px, 92vw);
+      height:320px;
+      filter: drop-shadow(var(--shadowSoft));
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* BIG click area: make the whole envelope clickable */
+    .tap-zone{
+      position:absolute;
+      inset:0;
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      z-index:6; /* above envelope pieces but below sparkles */
+      padding:0;
+      border-radius:22px;
+    }
+    .tap-zone:focus-visible{
+      outline:3px solid rgba(255,77,109,.28);
+      outline-offset:6px;
+    }
+
+    /* ---------- PAPER ---------- */
+    .paper{
+      position:absolute;
+      left:50%;
+      bottom:42px;
+      transform:translateX(-50%) translateY(130px);
+      width:90%;
+      height:88%;
+      border-radius:18px;
+      border:1px solid rgba(0,0,0,.06);
+      background:
+        radial-gradient(140px 140px at 20% 10%, rgba(255,255,255,.75), transparent 60%),
+        radial-gradient(220px 180px at 80% 25%, rgba(255,255,255,.55), transparent 62%),
+        linear-gradient(180deg, var(--paper), var(--paper2));
+      box-shadow: 0 18px 38px rgba(0,0,0,.14);
+      padding:24px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      line-height:1.55;
+      font-size:26px;
+      letter-spacing:.8px;
+      opacity:0;
+      transition: transform 760ms cubic-bezier(.2,.95,.15,1), opacity 520ms ease;
+      z-index:3;
+      overflow:hidden;
+    }
+    /* subtle paper grain */
+    .paper::after{
+      content:"";
+      position:absolute; inset:-40px;
+      background:
+        repeating-linear-gradient(0deg, rgba(0,0,0,.018), rgba(0,0,0,.018) 1px, transparent 1px, transparent 5px),
+        repeating-linear-gradient(90deg, rgba(0,0,0,.012), rgba(0,0,0,.012) 1px, transparent 1px, transparent 6px);
+      opacity:.35;
+      transform: rotate(1deg);
+      pointer-events:none;
+    }
+    .paper::before{
+      content:"";
+      position:absolute; inset:16px;
+      border-radius:14px;
+      border:1px dashed rgba(0,0,0,.14);
+      pointer-events:none;
+    }
+
+    .msg{
+      position:relative;
+      z-index:2;
+      padding:6px 6px;
+      text-shadow: 0 2px 0 rgba(255,255,255,.55);
+    }
+    .cursor{
+      display:inline-block;
+      width:10px;
+      height:1em;
+      transform: translateY(3px);
+      margin-left:2px;
+      background: rgba(31,36,48,.75);
+      animation: blink 1s steps(1) infinite;
+      border-radius:2px;
+    }
+    @keyframes blink{ 50%{ opacity:0; } }
+
+    /* ---------- ENVELOPE ---------- */
+    .envelope{
+      position:absolute;
+      inset:0;
+      z-index:2;
+      pointer-events:none; /* important: clicks go to tap-zone */
+    }
+
+    .env-back{
+      position:absolute;
+      inset:22px 18px 18px;
+      border-radius:20px;
+      border:1px solid var(--envEdge);
+      background:
+        radial-gradient(220px 140px at 30% 10%, rgba(255,255,255,.35), transparent 60%),
+        linear-gradient(160deg, var(--envA), var(--envB));
+      overflow:hidden;
+      z-index:2;
+    }
+    .env-back .shine{
+      position:absolute;
+      inset:-40px -80px auto auto;
+      width:260px; height:180px;
+      transform: rotate(18deg);
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 65%);
+      opacity:.35;
+      pointer-events:none;
+    }
+
+    .pocket{
+      position:absolute;
+      inset:0;
+    }
+    .pocket::before, .pocket::after{
+      content:"";
+      position:absolute;
+      bottom:-2px;
+      width:0; height:0;
+      border-style:solid;
+      border-color:transparent;
+      opacity:.98;
+    }
+    .pocket::before{
+      left:-2px;
+      border-width: 150px 220px 0 0;
+      border-top-color: rgba(255,255,255,.22);
+    }
+    .pocket::after{
+      right:-2px;
+      border-width: 150px 0 0 220px;
+      border-top-color: rgba(0,0,0,.06);
+    }
+
+    /* front pocket */
+    .pocket-front{
+      position:absolute;
+      left:18px;
+      right:18px;
+      bottom:18px;
+      height:64%;
+      border-radius:0 0 20px 20px;
+      border-top:1px solid rgba(0,0,0,.08);
+      background:
+        radial-gradient(260px 120px at 50% 10%, rgba(255,255,255,.22), transparent 70%),
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(0,0,0,.03));
+      z-index:4;
+      overflow:hidden;
+    }
+    .pocket-front::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:-1px;
+      transform:translateX(-50%);
+      width:0; height:0;
+      border-left: 220px solid transparent;
+      border-right:220px solid transparent;
+      border-top: 150px solid rgba(0,0,0,.07);
+      opacity:.9;
+    }
+
+    /* flap */
+    .flap{
+      position:absolute;
+      left:50%;
+      top:10px;
+      transform:translateX(-50%);
+      width:0;height:0;
+      border-left: 220px solid transparent;
+      border-right:220px solid transparent;
+      border-bottom: 170px solid rgba(255,255,255,.24);
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,.10));
+      transform-origin: 50% 0%;
+      transition: transform 760ms cubic-bezier(.2,.95,.15,1);
+      z-index:5;
+    }
+
+    /* Heart visual (center) */
+    .heart-visual{
+      position:absolute;
+      left:50%;
+      top:54%;
+      transform:translate(-50%,-50%);
+      width:76px;
+      height:76px;
+      display:grid;
+      place-items:center;
+      z-index:6;
+      pointer-events:none; /* click goes to tap-zone */
+    }
+    .heart-visual .ring{
+      position:absolute;
+      inset:8px;
+      border-radius:999px;
+      border:1px solid rgba(255,77,109,.30);
+      box-shadow: 0 10px 30px rgba(255,77,109,.12);
+      opacity:.0;
+      transform: scale(.92);
+      transition: opacity 220ms ease, transform 220ms ease;
+      pointer-events:none;
+    }
+    .stage:hover .heart-visual .ring{ opacity:1; transform: scale(1); }
+
+    .heart{
+      position:relative;
+      width:30px;
+      height:30px;
+      transform: rotate(-45deg);
+      background:var(--heart);
+      border-radius:7px;
+      animation: pulse 1.3s ease-in-out infinite;
+      box-shadow: 0 14px 34px rgba(255,77,109,.30);
+    }
+    .heart::before, .heart::after{
+      content:"";
+      position:absolute;
+      width:30px; height:30px;
+      background:var(--heart);
+      border-radius:50%;
+    }
+    .heart::before{ top:-15px; left:0; }
+    .heart::after{ left:15px; top:0; }
+    @keyframes pulse{
+      0%,100%{ transform: rotate(-45deg) scale(1); }
+      50%{ transform: rotate(-45deg) scale(1.12); }
+    }
+
+    /* OPEN STATE */
+    .open .paper{
+      transform:translateX(-50%) translateY(-10px);
+      opacity:1;
+    }
+    .open .flap{
+      transform:translateX(-50%) rotateX(180deg);
+    }
+    .open .heart{ animation:none; }
+
+    .sub{
+      font-size:12px;
+      opacity:.65;
+      user-select:none;
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+    .spark{
+      width:6px;height:6px;border-radius:999px;
+      background: radial-gradient(circle, var(--gold), transparent 70%);
+      filter: drop-shadow(0 6px 10px rgba(255,211,110,.35));
+    }
+
+    /* sparkles layer */
+    .sparkle-layer{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index:7;
+      overflow:hidden;
+    }
+    .sparkle{
+      position:absolute;
+      width:6px; height:6px;
+      border-radius:999px;
+      background: radial-gradient(circle, #fff, var(--gold) 55%, transparent 75%);
+      opacity:0;
+      transform: translate(-50%,-50%) scale(.8);
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .blob{ animation:none; }
+      .heart{ animation:none; }
+      .cursor{ animation:none; opacity:0; }
+      .paper, .flap{ transition:none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <div class="wrap">
+    <div class="title">
+      <span class="dot"></span>
+      <span>点击信封（或爱心），打开纸张</span>
+      <span class="dot"></span>
+    </div>
+
+    <div class="stage" id="stage" aria-label="信封祝福卡片">
+      <div class="sparkle-layer" id="sparkleLayer" aria-hidden="true"></div>
+
+      <!-- Paper -->
+      <div class="paper" id="paper" role="dialog" aria-live="polite">
+        <div class="msg">
+          <span id="typed"></span><span class="cursor" id="cursor"></span>
+        </div>
+      </div>
+
+      <!-- Envelope (visual only) -->
+      <div class="envelope" aria-hidden="true">
+        <div class="env-back">
+          <div class="shine"></div>
+          <div class="pocket"></div>
+        </div>
+
+        <div class="pocket-front"></div>
+        <div class="flap"></div>
+
+        <div class="heart-visual" aria-hidden="true">
+          <span class="ring"></span>
+          <div class="heart"></div>
+        </div>
+      </div>
+
+      <!-- BIG clickable button over the whole envelope -->
+      <button class="tap-zone" id="tapZone" aria-label="打开/收起信封" aria-pressed="false"></button>
+    </div>
+
+    <div class="sub">
+      <span class="spark"></span>
+      <span>再点一次会收回</span>
+      <span class="spark"></span>
+    </div>
+  </div>
+
+  <script>
+    const stage = document.getElementById('stage');
+    const tapZone = document.getElementById('tapZone');
+    const typedEl = document.getElementById('typed');
+    const cursorEl = document.getElementById('cursor');
+    const sparkleLayer = document.getElementById('sparkleLayer');
+
+    const message = "野云老师你还接不接稿！我好喜欢你的画！";
+    let typingTimer = null;
+    let cursorTimer = null;
+
+    function clearTimers(){
+      if (typingTimer) { clearInterval(typingTimer); typingTimer = null; }
+      if (cursorTimer) { clearTimeout(cursorTimer); cursorTimer = null; }
+    }
+
+    function typeIn(){
+      clearTimers();
+      typedEl.textContent = "";
+      cursorEl.style.display = "inline-block";
+
+      let i = 0;
+      typingTimer = setInterval(() => {
+        i++;
+        typedEl.textContent = message.slice(0, i);
+        if (i >= message.length){
+          clearInterval(typingTimer);
+          typingTimer = null;
+          cursorTimer = setTimeout(() => { cursorEl.style.display = "none"; }, 900);
+        }
+      }, 70);
+    }
+
+    function burstSparkles(){
+      const rect = stage.getBoundingClientRect();
+      const cx = rect.width * 0.5;
+      const cy = rect.height * 0.56;
+
+      for (let i = 0; i < 18; i++){
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+
+        const ang = Math.random() * Math.PI * 2;
+        const dist = 18 + Math.random() * 70;
+        const x = cx + Math.cos(ang) * dist;
+        const y = cy + Math.sin(ang) * dist;
+
+        s.style.left = x + 'px';
+        s.style.top  = y + 'px';
+
+        sparkleLayer.appendChild(s);
+
+        s.animate([
+          { opacity: 0, transform: 'translate(-50%,-50%) scale(.6)' },
+          { opacity: 1, transform: 'translate(-50%,-50%) scale(1)' },
+          { opacity: 0, transform: 'translate(-50%,-70%) scale(.9)' }
+        ], {
+          duration: 900 + Math.random() * 450,
+          easing: 'cubic-bezier(.2,.9,.2,1)',
+          fill: 'forwards'
+        });
+
+        setTimeout(() => s.remove(), 1400);
+      }
+    }
+
+    function openCard(){
+      stage.classList.add('open');
+      tapZone.setAttribute('aria-pressed', 'true');
+      typeIn();
+      burstSparkles();
+    }
+
+    function closeCard(){
+      stage.classList.remove('open');
+      tapZone.setAttribute('aria-pressed', 'false');
+      clearTimers();
+      typedEl.textContent = "";
+      cursorEl.style.display = "none";
+    }
+
+    function toggleOpen(){
+      const opened = stage.classList.contains('open');
+      if (opened) closeCard();
+      else openCard();
+    }
+
+    tapZone.addEventListener('click', toggleOpen);
+    tapZone.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleOpen();
+      }
+    });
+
+    // small gentle hint animation on load
+    setTimeout(() => {
+      stage.animate([
+        { transform:'translateY(0px)' },
+        { transform:'translateY(-4px)' },
+        { transform:'translateY(0px)' }
+      ], { duration: 900, easing:'ease-in-out' });
+    }, 600);
+  </script>
+</body>
+</html>
